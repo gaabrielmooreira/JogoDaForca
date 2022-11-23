@@ -7,10 +7,11 @@ import React from "react"
 function App() {
   const palavraSorteada = sorteiaPalavra();
   const [desabilitarJogo, setDesabilitarJogo] = React.useState(true);
+  const [forcaTitulo, setForcaTitulo] = React.useState("1 - ESTADO INICIAL DO JOGO");
   const [forcaImg,setForcaImg] = React.useState("assets/forca0.png");
   const [qtdErros,setQtdErros] = React.useState(0);
-
-  function forcaMudaImg(qtdErros){
+  
+  function forcaMudaImg (qtdErros){
     if(qtdErros === 1) setForcaImg("assets/forca1.png");
     if(qtdErros === 2) setForcaImg("assets/forca2.png");
     if(qtdErros === 3) setForcaImg("assets/forca3.png");
@@ -28,14 +29,16 @@ function App() {
   function habilitarJogo(){
     setDesabilitarJogo(false);
     setQtdErros(0);
+    setForcaTitulo("2 - JOGO INICIADO");
   }
 
   return (
     <>
       <Jogo 
         palavraSorteada={palavraSorteada} 
-        desabilitarJogo={desabilitarJogo} 
+        desabilitarJogo={desabilitarJogo}
         habilitarJogo={habilitarJogo} 
+        forcaTitulo={forcaTitulo} 
         forcaImg={forcaImg}
       />
 

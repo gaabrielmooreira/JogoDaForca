@@ -1,9 +1,9 @@
 export default function Jogo(props) {
-    const {palavraSorteada,desabilitarJogo,habilitarJogo,forcaImg} = props;
+    const {palavraSorteada,desabilitarJogo,habilitarJogo,forcaTitulo,forcaImg} = props;
     return (
         <div className="jogo">
             <header>
-                <h1>1 - ESTADO INICIAL DO JOGO</h1>
+                <h1>{forcaTitulo}</h1>
             </header>
             <div className="forca">
                 <img src={forcaImg} alt="Forca" />
