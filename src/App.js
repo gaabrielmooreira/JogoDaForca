@@ -1,29 +1,57 @@
+import Chute from "./components/Chute";
+import Jogo from "./components/Jogo";
+import Letras from "./components/Letras";
+import palavras from "./palavras";
+import React from "react"
+
 function App() {
+  const palavraSorteada = sorteiaPalavra();
+  const [desabilitarJogo, setDesabilitarJogo] = React.useState(true);
+  const [forcaImg,setForcaImg] = React.useState("assets/forca0.png");
+  const [qtdErros,setQtdErros] = React.useState(0);
+
+  function forcaMudaImg(qtdErros){
+    if(qtdErros === 1) setForcaImg("assets/forca1.png");
+    if(qtdErros === 2) setForcaImg("assets/forca2.png");
+    if(qtdErros === 3) setForcaImg("assets/forca3.png");
+    if(qtdErros === 4) setForcaImg("assets/forca4.png");
+    if(qtdErros === 5) setForcaImg("assets/forca5.png");
+    if(qtdErros === 6) setForcaImg("assets/forca6.png");
+  }
+
+  function errouLetra(){
+    setQtdErros(qtdErros + 1);
+
+    forcaMudaImg(qtdErros);
+  }
+
+  function habilitarJogo(){
+    setDesabilitarJogo(false);
+    setQtdErros(0);
+  }
+
   return (
-    <div className="app">
-      <header>
-        <h1>1 - ESTADO INICIAL DO JOGO</h1>
-      </header>
+    <>
+      <Jogo 
+        palavraSorteada={palavraSorteada} 
+        desabilitarJogo={desabilitarJogo} 
+        habilitarJogo={habilitarJogo} 
+        forcaImg={forcaImg}
+      />
 
-      <div className="jogo">
-        <img src="assets/forca0.png" alt="Forca"/>
-        <div>
-          <button className="botao-iniciar">Escolher Palavra</button>
-          <p>_ _ _ _ _ _ _</p>
-        </div>
-      </div>
+      <Letras 
+        desabilitarJogo={desabilitarJogo}
+        errouLetra={errouLetra}
+      />
 
-      <div className="letras">
-        <button class="letra apagada">A</button>
-      </div>
-
-      <div className="chute">
-        <p>Já sei a palavra!</p>
-        <input type="text"></input>
-        <button>Chutar</button>
-      </div>
-    </div>
+      <Chute desabilitarJogo={desabilitarJogo}/>
+    </>
   );
 }
+
+// 
+const sorteiaPalavra = () => palavras[Math.floor(Math.random() * palavras.length)];
+
+
 
 export default App;

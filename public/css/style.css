@@ -11,30 +11,30 @@ button {
     cursor: pointer;
 }
 
-header {
+.jogo header {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-header h1 {
+.jogo header h1 {
     color:#FF0000;
     font-size: 30px;
     font-weight: 700;
     line-height: 35px;
 }
 
-.jogo {
+.jogo .forca {
     display: flex;
     justify-content: space-between;
     margin-top: 85px;
 }
 
-.jogo img {
+.jogo .forca img {
     width: 400px;
 }
 
-.jogo div {
+.jogo .forca div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -42,7 +42,7 @@ header h1 {
     padding: 30px 0;
 }
 
-.jogo div button {
+.jogo .forca div button {
     width: 200px;
     height: 60px;
     color:#FFF;
@@ -54,14 +54,22 @@ header h1 {
     text-align: center;
 }
 
-.jogo div p {
+.jogo .forca div p {
     font-family: 'Noto Sans', sans-serif;
     font-size: 50px;
+}
+
+.jogo .forca div p.desabilitar{
+    display: none;
 }
 
 .letras {
     width: 664px;
     margin: 70px auto 56px auto;
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .letras .letra,.chute button {
@@ -80,9 +88,10 @@ header h1 {
     border-radius: 3px;
 }
 
-.letras .letra.apagada{
+.letras .letra.desabilitar{
     background-color: #9FAAB5;
     color: #798A9F;
+    cursor: default;
 }
 
 .chute {
@@ -108,4 +117,8 @@ header h1 {
 
 .chute button {
     width: 100px;
+}
+
+.chute button.desabilitar,.jogo .forca div button.letra.desabilitar{
+    cursor: default;
 }
