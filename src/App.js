@@ -15,13 +15,15 @@ function App() {
   const [arrChutes, setArrChutes] = React.useState([]);
   const [palavraTela, setPalavraTela] = React.useState(palavraSorteada);
   const [acabouJogo, setAcabouJogo] = React.useState(false);
+  const [valorInput,setValorInput] = React.useState("");
   const [resultado, setResultado] = React.useState("");
 
   function forcaMudaImg(qtdErrosAtual) {
     if (qtdErrosAtual >= 6) {
       setAcabouJogo(true);
       setDesabilitarJogo(true);
-      setForcaImg(`assets/forca${qtdErrosAtual}.png`);
+      setForcaImg(`assets/forca6.png`);
+      setResultado("perdeu");
       atualizarPalavraTela('',qtdErrosAtual);
     } else {
       setForcaImg(`assets/forca${qtdErrosAtual}.png`);
@@ -34,7 +36,7 @@ function App() {
     forcaMudaImg(qtdErrosAtual);
   }
 
-  function atualizarPalavraTela(letra,qtdErrosAtual) {
+  function atualizarPalavraTela(letra,qtdErrosAtual,acertouInput) {
     let palavra = [];
     for (let i = 0; i < palavraSorteada.length; i++) {
       if (arrChutes.includes(palavraSorteada[i]) || letra === palavraSorteada[i]) {
@@ -44,7 +46,7 @@ function App() {
       }
     }
 
-    if(palavra.join("") === palavraSorteada || qtdErrosAtual >=6){
+    if(palavra.join("") === palavraSorteada || qtdErrosAtual >= 6 || acertouInput){
       setPalavraTela(palavraSorteada);
       return;
     }
@@ -64,6 +66,7 @@ return (
       palavraTela={palavraTela}
       atualizarPalavraTela={atualizarPalavraTela}
       acabouJogo={acabouJogo}
+      resultado={resultado}
     />
 
     <Letras
@@ -78,6 +81,12 @@ return (
     <Chute
       palavraSorteada={palavraSorteada}
       desabilitarJogo={desabilitarJogo}
+      valorInput={valorInput}
+      setValorInput={setValorInput}
+      forcaMudaImg={forcaMudaImg}
+      atualizarPalavraTela={atualizarPalavraTela}
+      qtdErros={qtdErros}
+      setResultado={setResultado}
     />
   </>
 );
