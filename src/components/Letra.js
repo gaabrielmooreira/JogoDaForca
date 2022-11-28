@@ -5,8 +5,9 @@ export default function Letra(props) {
     function adicionarChute(letra) {
         const arrNovo = [...arrChutes, letra];
         setArrChutes(arrNovo);
+
         if (palavraSorteada.includes(letra)) {
-            atualizarPalavraTela(letra);
+            atualizarPalavraTela(arrNovo);
         } else {
             errouLetra();
         }

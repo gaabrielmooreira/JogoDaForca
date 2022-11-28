@@ -1,9 +1,14 @@
 export default function Jogo(props) {
-    const {desabilitarJogo, setDesabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado} = props;
-
+    const {desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput} = props;
     function comecarJogo() {
         setDesabilitarJogo(false);
-        atualizarPalavraTela();
+        setForcaImg(`assets/forca0.png`);
+        const novoArr = [];
+        setArrChutes(novoArr);
+        setQtdErros(0);
+        setResultado("");
+        atualizarPalavraTela(novoArr);
+        setValorInput("");
     }
 
     return (

@@ -5,7 +5,7 @@ import palavras from "./palavras";
 import React from "react"
 
 const sorteiaPalavra = () => palavras[Math.floor(Math.random() * palavras.length)];
-const palavraSorteada = sorteiaPalavra();
+let palavraSorteada = sorteiaPalavra();
 
 function App() {
 
@@ -18,13 +18,14 @@ function App() {
   const [valorInput,setValorInput] = React.useState("");
   const [resultado, setResultado] = React.useState("");
 
-  function forcaMudaImg(qtdErrosAtual) {
+  function forcaMudou(qtdErrosAtual) {
     if (qtdErrosAtual >= 6) {
+      setForcaImg(`assets/forca6.png`);
       setAcabouJogo(true);
       setDesabilitarJogo(true);
-      setForcaImg(`assets/forca6.png`);
       setResultado("perdeu");
-      atualizarPalavraTela('',qtdErrosAtual);
+      
+      atualizarPalavraTela([],qtdErrosAtual);
     } else {
       setForcaImg(`assets/forca${qtdErrosAtual}.png`);
     }
@@ -33,21 +34,33 @@ function App() {
   function errouLetra() {
     const qtdErrosAtual = qtdErros + 1;
     setQtdErros(qtdErrosAtual);
-    forcaMudaImg(qtdErrosAtual);
+    forcaMudou(qtdErrosAtual);
   }
 
-  function atualizarPalavraTela(letra,qtdErrosAtual,acertouInput) {
+  function atualizarPalavraTela(arrChutesAtual,qtdErrosAtual,acertouInput) {
+    
+    if(qtdErrosAtual >= 6){
+      setPalavraTela(palavraSorteada);
+      setResultado("perdeu");
+      palavraSorteada = sorteiaPalavra();
+      return;
+    }
+
     let palavra = [];
     for (let i = 0; i < palavraSorteada.length; i++) {
-      if (arrChutes.includes(palavraSorteada[i]) || letra === palavraSorteada[i]) {
+      if (arrChutesAtual.includes(palavraSorteada[i])) {
         palavra[i] = palavraSorteada[i];
       } else {
         palavra[i] = "_";
       }
     }
 
-    if(palavra.join("") === palavraSorteada || qtdErrosAtual >= 6 || acertouInput){
+    if(palavra.join("") === palavraSorteada || acertouInput){
       setPalavraTela(palavraSorteada);
+      setResultado("ganhou");
+      setAcabouJogo(true);
+      setDesabilitarJogo(true);
+      palavraSorteada = sorteiaPalavra();
       return;
     }
 
@@ -63,10 +76,16 @@ return (
       desabilitarJogo={desabilitarJogo}
       setDesabilitarJogo={setDesabilitarJogo}
       forcaImg={forcaImg}
+      setForcaImg={setForcaImg}
       palavraTela={palavraTela}
       atualizarPalavraTela={atualizarPalavraTela}
       acabouJogo={acabouJogo}
       resultado={resultado}
+      arrChutes={arrChutes}
+      setArrChutes={setArrChutes}
+      setQtdErros={setQtdErros}
+      setResultado={setResultado}
+      setValorInput={setValorInput}
     />
 
     <Letras
@@ -83,7 +102,7 @@ return (
       desabilitarJogo={desabilitarJogo}
       valorInput={valorInput}
       setValorInput={setValorInput}
-      forcaMudaImg={forcaMudaImg}
+      forcaMudou={forcaMudou}
       atualizarPalavraTela={atualizarPalavraTela}
       qtdErros={qtdErros}
       setResultado={setResultado}

@@ -50,6 +50,14 @@ button {
     display: none;
 }
 
+.jogo .forca div p.ganhou {
+    color: #27AE60;
+}
+
+.jogo .forca div p.perdeu {
+    color: #FF0000;
+}
+
 .letras {
     width: 664px;
     margin: 70px auto 56px auto;

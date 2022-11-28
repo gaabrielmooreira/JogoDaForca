@@ -1,5 +1,5 @@
 export default function Chute(props) {
-    const { palavraSorteada, desabilitarJogo, valorInput, setValorInput, forcaMudaImg, atualizarPalavraTela, qtdErros, setResultado } = props;
+    const { palavraSorteada, desabilitarJogo, valorInput, setValorInput, forcaMudou, atualizarPalavraTela, qtdErros, setResultado } = props;
 
     function chutarPalavra() {
         if (valorInput === palavraSorteada) {
@@ -7,7 +7,7 @@ export default function Chute(props) {
             setResultado("ganhou");
         } else {
             const qtdErrosAtual = 6;
-            forcaMudaImg(qtdErrosAtual);
+            forcaMudou(qtdErrosAtual);
             setValorInput("");
         }
     }
