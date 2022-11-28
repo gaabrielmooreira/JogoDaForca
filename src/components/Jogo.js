@@ -18,7 +18,7 @@ export default function Jogo(props) {
             <div className="forca">
                 <img data-test="game-image" src={forcaImg} alt="Forca" />
                 <div>
-                    <button data-test="choose-word" onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
+                    <button data-test="choose-word" onClick={comecarJogo} className="botao-iniciar" disabled={(desabilitarJogo === false || resultado === "perdeu") ? true : false}>Escolher Palavra</button>
                     <p
                         data-test="word"
                         data-answer={palavraSorteada}
