@@ -15,6 +15,7 @@ export default function Letra(props) {
 
     return (
         <button
+            data-test="letter"
             onClick={() => adicionarChute(letraAlfabeto)}
             className={`letra ${desabilitarJogo === true ? "desabilitar" : ""} ${arrChutes.includes(letraAlfabeto) === true ? "desabilitar" : ""}`}
             disabled={(arrChutes.includes(letraAlfabeto) === true ? true : false) || (desabilitarJogo === true ? true : false)}

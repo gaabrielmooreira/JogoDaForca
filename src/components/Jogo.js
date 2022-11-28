@@ -1,5 +1,5 @@
 export default function Jogo(props) {
-    const {desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput} = props;
+    const {palavraSorteada,desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput} = props;
     function comecarJogo() {
         setDesabilitarJogo(false);
         setForcaImg(`assets/forca0.png`);
@@ -14,10 +14,12 @@ export default function Jogo(props) {
     return (
         <div className="jogo">
             <div className="forca">
-                <img src={forcaImg} alt="Forca" />
+                <img data-test="game-image" src={forcaImg} alt="Forca" />
                 <div>
-                    <button onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
+                    <button data-test="choose-word" onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
                     <p 
+                        data-test="word"
+                        data-answer={palavraSorteada}
                         className={
                             `
                                 ${(desabilitarJogo === true && acabouJogo === false) ? "desabilitar" : ""} 

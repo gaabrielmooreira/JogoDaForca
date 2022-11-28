@@ -16,6 +16,7 @@ export default function Chute(props) {
         <div className="chute">
             <p>Já sei a palavra!</p>
             <input
+                data-test="guess-input"
                 onChange={(e) => setValorInput(e.target.value)}
                 value={valorInput}
                 type="text"
@@ -23,6 +24,7 @@ export default function Chute(props) {
             >
             </input>
             <button
+                data-test="guess-button"
                 onClick={chutarPalavra}
                 className={desabilitarJogo === true ? "desabilitar" : ""}
                 disabled={desabilitarJogo === true ? true : false}
