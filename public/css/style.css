@@ -11,19 +11,6 @@ button {
     cursor: pointer;
 }
 
-.jogo header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.jogo header h1 {
-    color:#FF0000;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 35px;
-}
-
 .jogo .forca {
     display: flex;
     justify-content: space-between;

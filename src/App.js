@@ -4,56 +4,86 @@ import Letras from "./components/Letras";
 import palavras from "./palavras";
 import React from "react"
 
+const sorteiaPalavra = () => palavras[Math.floor(Math.random() * palavras.length)];
+const palavraSorteada = sorteiaPalavra();
+
 function App() {
-  const palavraSorteada = sorteiaPalavra();
+
   const [desabilitarJogo, setDesabilitarJogo] = React.useState(true);
-  const [forcaTitulo, setForcaTitulo] = React.useState("1 - ESTADO INICIAL DO JOGO");
-  const [forcaImg,setForcaImg] = React.useState("assets/forca0.png");
-  const [qtdErros,setQtdErros] = React.useState(0);
-  
-  function forcaMudaImg (qtdErros){
-    if(qtdErros === 1) setForcaImg("assets/forca1.png");
-    if(qtdErros === 2) setForcaImg("assets/forca2.png");
-    if(qtdErros === 3) setForcaImg("assets/forca3.png");
-    if(qtdErros === 4) setForcaImg("assets/forca4.png");
-    if(qtdErros === 5) setForcaImg("assets/forca5.png");
-    if(qtdErros === 6) setForcaImg("assets/forca6.png");
+  const [forcaImg, setForcaImg] = React.useState("assets/forca0.png");
+  const [qtdErros, setQtdErros] = React.useState(0);
+  const [arrChutes, setArrChutes] = React.useState([]);
+  const [palavraTela, setPalavraTela] = React.useState(palavraSorteada);
+  const [acabouJogo, setAcabouJogo] = React.useState(false);
+  const [resultado, setResultado] = React.useState("");
+
+  function forcaMudaImg(qtdErrosAtual) {
+    if (qtdErrosAtual >= 6) {
+      setAcabouJogo(true);
+      setDesabilitarJogo(true);
+      setForcaImg(`assets/forca${qtdErrosAtual}.png`);
+      atualizarPalavraTela('',qtdErrosAtual);
+    } else {
+      setForcaImg(`assets/forca${qtdErrosAtual}.png`);
+    }
   }
 
-  function errouLetra(){
-    setQtdErros(qtdErros + 1);
-
-    forcaMudaImg(qtdErros);
+  function errouLetra() {
+    const qtdErrosAtual = qtdErros + 1;
+    setQtdErros(qtdErrosAtual);
+    forcaMudaImg(qtdErrosAtual);
   }
 
-  function habilitarJogo(){
-    setDesabilitarJogo(false);
-    setQtdErros(0);
-    setForcaTitulo("2 - JOGO INICIADO");
+  function atualizarPalavraTela(letra,qtdErrosAtual) {
+    let palavra = [];
+    for (let i = 0; i < palavraSorteada.length; i++) {
+      if (arrChutes.includes(palavraSorteada[i]) || letra === palavraSorteada[i]) {
+        palavra[i] = palavraSorteada[i];
+      } else {
+        palavra[i] = "_";
+      }
+    }
+
+    if(palavra.join("") === palavraSorteada || qtdErrosAtual >=6){
+      setPalavraTela(palavraSorteada);
+      return;
+    }
+
+    setPalavraTela(palavra.join(" "));
   }
 
-  return (
-    <>
-      <Jogo 
-        palavraSorteada={palavraSorteada} 
-        desabilitarJogo={desabilitarJogo}
-        habilitarJogo={habilitarJogo} 
-        forcaTitulo={forcaTitulo} 
-        forcaImg={forcaImg}
-      />
 
-      <Letras 
-        desabilitarJogo={desabilitarJogo}
-        errouLetra={errouLetra}
-      />
 
-      <Chute desabilitarJogo={desabilitarJogo}/>
-    </>
-  );
+return (
+  <>
+    <Jogo
+      palavraSorteada={palavraSorteada}
+      desabilitarJogo={desabilitarJogo}
+      setDesabilitarJogo={setDesabilitarJogo}
+      forcaImg={forcaImg}
+      palavraTela={palavraTela}
+      atualizarPalavraTela={atualizarPalavraTela}
+      acabouJogo={acabouJogo}
+    />
+
+    <Letras
+      palavraSorteada={palavraSorteada}
+      desabilitarJogo={desabilitarJogo}
+      errouLetra={errouLetra}
+      arrChutes={arrChutes}
+      setArrChutes={setArrChutes}
+      atualizarPalavraTela={atualizarPalavraTela}
+    />
+
+    <Chute
+      palavraSorteada={palavraSorteada}
+      desabilitarJogo={desabilitarJogo}
+    />
+  </>
+);
 }
 
-// 
-const sorteiaPalavra = () => palavras[Math.floor(Math.random() * palavras.length)];
+
 
 
 

@@ -1,15 +1,18 @@
 export default function Jogo(props) {
-    const {palavraSorteada,desabilitarJogo,habilitarJogo,forcaTitulo,forcaImg} = props;
+    const {desabilitarJogo, setDesabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo} = props;
+
+    function comecarJogo() {
+        setDesabilitarJogo(false);
+        atualizarPalavraTela();
+    }
+
     return (
         <div className="jogo">
-            <header>
-                <h1>{forcaTitulo}</h1>
-            </header>
             <div className="forca">
                 <img src={forcaImg} alt="Forca" />
                 <div>
-                    <button onClick={habilitarJogo} className="botao-iniciar">Escolher Palavra</button>
-                    <p className={desabilitarJogo === true ? "desabilitar":""}>{esconderPalavra(palavraSorteada)}</p>
+                    <button onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
+                    <p className={(desabilitarJogo === true && acabouJogo === false )? "desabilitar" : ""}>{palavraTela}</p>
                 </div>
             </div>
         </div>
@@ -17,10 +20,3 @@ export default function Jogo(props) {
 }
 
 
-function esconderPalavra(palavraSorteada){
-    const palavraEscondida = [];
-    for(let i = 0; i < palavraSorteada.length; i++){
-        i === 0? palavraEscondida.push("_"):palavraEscondida.push(" _");
-    }
-    return palavraEscondida;
-}
