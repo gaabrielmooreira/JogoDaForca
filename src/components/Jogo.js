@@ -1,7 +1,7 @@
 import forca0 from "../assets/forca0.png"
 
 export default function Jogo(props) {
-    const { desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput } = props;
+    const { palavraSorteada, desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput } = props;
     function comecarJogo() {
         setDesabilitarJogo(false);
         setForcaImg(forca0);
@@ -21,7 +21,7 @@ export default function Jogo(props) {
                     <button data-test="choose-word" onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
                     <p
                         data-test="word"
-                        data-answer={palavraTela}
+                        data-answer={palavraSorteada}
                         className={
                             `
                                 ${(desabilitarJogo === true && acabouJogo === false) ? "desabilitar" : ""} 
