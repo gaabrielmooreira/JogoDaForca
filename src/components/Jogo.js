@@ -1,8 +1,10 @@
+import forca0 from "../assets/forca0.png"
+
 export default function Jogo(props) {
-    const {palavraSorteada,desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput} = props;
+    const { desabilitarJogo, forcaImg, palavraTela, atualizarPalavraTela, acabouJogo, resultado, setDesabilitarJogo, setResultado, setArrChutes, setQtdErros, setForcaImg, setValorInput } = props;
     function comecarJogo() {
         setDesabilitarJogo(false);
-        setForcaImg(`assets/forca0.png`);
+        setForcaImg(forca0);
         const novoArr = [];
         setArrChutes(novoArr);
         setQtdErros(0);
@@ -17,19 +19,19 @@ export default function Jogo(props) {
                 <img data-test="game-image" src={forcaImg} alt="Forca" />
                 <div>
                     <button data-test="choose-word" onClick={comecarJogo} className="botao-iniciar" disabled={desabilitarJogo === true ? false : true}>Escolher Palavra</button>
-                    <p 
+                    <p
                         data-test="word"
-                        data-answer={palavraSorteada}
+                        data-answer={palavraTela}
                         className={
                             `
                                 ${(desabilitarJogo === true && acabouJogo === false) ? "desabilitar" : ""} 
-                                ${resultado === "ganhou" ? "ganhou":""}
-                                ${resultado === "perdeu" ? "perdeu":""}
-                                
+                                ${resultado === "ganhou" ? "ganhou" : ""}
+                                ${resultado === "perdeu" ? "perdeu" : ""}
                             `
-                        }   
+                        }
                     >
-                        {palavraTela}</p>
+                        {palavraTela}
+                    </p>
                 </div>
             </div>
         </div>
